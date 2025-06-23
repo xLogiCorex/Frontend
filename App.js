@@ -30,7 +30,6 @@ function CatalogScreen({ products }) {
   );
 }
 
-// A többi fül egyszerű placeholder komponens
 function PartnerScreen() {
   return <View style={styles.screen}><Text>Partner keresés, új partner felvétele</Text></View>;
 }
