@@ -50,11 +50,8 @@ function LoginScreen({ onLogin }) {
 function CatalogScreen({ products }) {
   return (
     <View style={styles.catalogContainer}>
-      <FlatList
-        data={products}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={{ padding: 16 }}
-        renderItem={({ item }) => (
+      <FlatList  data={products} keyExtractor={item => item.id.toString()} contentContainerStyle={{ padding: 16 }} 
+      renderItem={({ item }) => (
           <View style={styles.productCard}>
             <Text style={styles.productName}>{item.name}</Text>
             <Text>{item.description}</Text>
