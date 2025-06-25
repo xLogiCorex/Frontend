@@ -133,11 +133,7 @@ export default function App() {
           options={{
             tabBarLabel: 'Katalógus',
             tabBarIcon: () => (
-              <Image
-                source={require('./assets/catalogueIcon.png')}
-                style={styles.icons}
-                resizeMode="contain"
-              />
+              <Image source={require('./assets/catalogueIcon.png')} style={styles.icons} resizeMode="contain" />
             ),
           }}
         >
@@ -150,11 +146,7 @@ export default function App() {
           options={{
             tabBarLabel: 'Partnerek',
             tabBarIcon: () => (
-              <Image
-                source={require('./assets/partnersIcon.png')}
-                style={styles.icons}
-                resizeMode="contain"
-              />
+              <Image source={require('./assets/partnersIcon.png')} style={styles.icons} resizeMode="contain" />
             ),
           }}
         />
@@ -165,11 +157,7 @@ export default function App() {
           options={{
             tabBarLabel: 'Rendelés',
             tabBarIcon: () => (
-              <Image
-                source={require('./assets/ordersIcon.png')}
-                style={styles.icons}
-                resizeMode="contain"
-              />
+              <Image source={require('./assets/ordersIcon.png')} style={styles.icons}  resizeMode="contain"/>
             ),
           }}
         />
@@ -180,14 +168,7 @@ export default function App() {
           options={{
             tabBarLabel: 'Kivétel',
             tabBarIcon: () => (
-              <Image
-                source={require('./assets/idkIcon.png')}
-                style={styles.icons}
-                resizeMode="contain"
-              />
-            ),
-          }}
-        />
+              <Image  source={require('./assets/idkIcon.png')} style={styles.icons} resizeMode="contain" />),}}/>
 
         <Tab.Screen
           name="Számlázás"
@@ -195,14 +176,10 @@ export default function App() {
           options={{
             tabBarLabel: 'Számlázás',
             tabBarIcon: () => (
-              <Image
-                source={require('./assets/invoicingIcon.png')}
-                style={styles.icons}
-                resizeMode="contain"
-              />
-            ),
-          }}
-        />
+              <Image source={require('./assets/invoicingIcon.png')} style={styles.icons} resizeMode="contain"/>
+              ),
+            }}
+          />
       </Tab.Navigator>
     </NavigationContainer>
   );
