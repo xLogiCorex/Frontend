@@ -80,6 +80,7 @@ function OrderScreen() {
       <Text>Megrendelés rögzítése (termék + mennyiség)</Text>
     </View>
   );
+  
 }
 function WithdrawalScreen() {
   return (
