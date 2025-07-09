@@ -17,7 +17,7 @@ export default function LoginScreen({ onLogin }) {
     if (!password) return Alert.alert('Hiba', 'Kérjük, adja meg a jelszavát.');
 
     try {
-      const response = await axios.post('http://192.168.0.10:3000/login', {
+      const response = await axios.post('http://192.168.0.18:3000/login', {
         newEmail: email,
         newPassword: password
       });

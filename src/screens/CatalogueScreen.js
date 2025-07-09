@@ -1,3 +1,5 @@
+//Kereshető legyen SKUra és Névre
+
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import styles from '../style/CatalogueScreenStyle';

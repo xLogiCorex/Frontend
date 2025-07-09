@@ -1,3 +1,5 @@
+//Kereshető legyen névre, emailre, kontaktra. adószámra
+
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import styles from '../style/PartnerScreenStyle';
