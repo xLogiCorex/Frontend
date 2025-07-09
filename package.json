@@ -12,17 +12,10 @@
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
     "@expo/vector-icons": "^14.1.0",
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-vector-icons/evil-icons": "^12.0.1",
     "@react-native-vector-icons/fontawesome6": "^12.0.1",
-    "@react-navigation/bottom-tabs": "^7.4.0",
-=======
     "@react-navigation/bottom-tabs": "^7.4.1",
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     "@react-navigation/native": "^7.1.14",
     "axios": "^1.10.0",
     "expo": "~53.0.12",
