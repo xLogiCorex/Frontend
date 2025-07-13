@@ -3,11 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Képernyők importálása
-import CatalogueScreen from '../screens/CatalogueScreen';
-import PartnerScreen from '../screens/PartnerScreen';
 import OrderScreen from '../screens/OrderScreen';
 import WithdrawalScreen from '../screens/WithdrawalScreen';
 import InvoiceScreen from '../screens/InvoiceScreen';
+
+import CatalogueStack from './CatalogueStack';
+import PartnerStack from './PartnerStack';  
 
 // Példában props-on keresztül kapja a termékeket és partnereket
 const Tab = createBottomTabNavigator();
@@ -20,24 +21,40 @@ export default function AppNavigator({ products, partners }) {
           tabBarActiveTintColor: '#dff9fb', tabBarInactiveTintColor: '#95afc0',
         }}
       >
-        <Tab.Screen name="Katalógus" options={{  tabBarLabel: 'Katalógus',
-            tabBarIcon: () => (
-            <Image source={require('../assets/catalogueIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" /> 
-        ),
-          }}
-        >
-          {() => <CatalogueScreen products={products} />}
-        </Tab.Screen>
 
-        <Tab.Screen  name="Partner" options={{
-            tabBarLabel: 'Partnerek',
-            tabBarIcon: () => (
-              <Image source={require('../assets/partnersIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
-            ),
-          }}
-        >
-          {() => <PartnerScreen partners={partners} />}
-        </Tab.Screen>
+      <Tab.Screen
+        name="Katalógus"
+        options={{
+          tabBarLabel: 'Katalógus',
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require('../assets/catalogueIcon.png')}
+              style={{ width: 30, height: 30, tintColor: '#b2bec3' }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      >
+        {() => <CatalogueStack products={products} />}
+      </Tab.Screen>
+
+      <Tab.Screen
+        name="Partnerek"
+        options={{
+          tabBarLabel: 'Partnerek',
+          headerShown: false,
+          tabBarIcon: () => (
+            <Image
+              source={require('../assets/partnersIcon.png')}
+              style={{ width: 30, height: 30, tintColor: '#b2bec3' }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      >
+        {() => <PartnerStack partners={partners} />}
+      </Tab.Screen>
 
         <Tab.Screen name="Megrendelés" component={OrderScreen} options={{ tabBarLabel: 'Rendelés',
             tabBarIcon: () => (

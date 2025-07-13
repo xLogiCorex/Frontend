@@ -23,4 +23,13 @@ export default StyleSheet.create({
   productStock: {
     textAlign: 'right',
   },
+  searchInput: {
+  height: 40,
+  borderColor: '#ccc',
+  borderWidth: 1,
+  borderRadius: 8,
+  margin: 8,
+  paddingHorizontal: 12,
+  backgroundColor: '#fff',
+},
 });

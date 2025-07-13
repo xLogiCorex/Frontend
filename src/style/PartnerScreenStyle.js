@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-   partnerContainer: {
+    partnerContainer: {
     flex: 1,
     backgroundColor: '#c7ecee',
   },
@@ -21,4 +21,13 @@ export default StyleSheet.create({
     textAlign: 'right',
     color: '#636e72',
   },
+  searchInput: {
+  height: 40,
+  borderColor: '#ccc',
+  borderWidth: 1,
+  borderRadius: 8,
+  margin: 8,
+  paddingHorizontal: 12,
+  backgroundColor: '#fff',
+},
 });
