@@ -7,8 +7,17 @@ import CatalogueScreen from '../screens/CatalogueScreen';
 import PartnerScreen from '../screens/PartnerScreen';
 import OrderScreen from '../screens/OrderScreen';
 import WithdrawalScreen from '../screens/WithdrawalScreen';
+import StockMovementScreen from '../screens/StockMovementScreen';
 import InvoiceScreen from '../screens/InvoiceScreen';
 
+<<<<<<< Updated upstream
+=======
+import CatalogueStack from './CatalogueStack';
+import PartnerStack from './PartnerStack';  
+import { Button } from 'react-native-web';
+//import InvoiceScreen from '../screens/InvoiceScreen';
+
+>>>>>>> Stashed changes
 // Példában props-on keresztül kapja a termékeket és partnereket
 const Tab = createBottomTabNavigator();
 
@@ -47,8 +56,10 @@ export default function AppNavigator({ products, partners }) {
         />
 
         <Tab.Screen name="Kivét" component={WithdrawalScreen} options={{ tabBarLabel: 'Kivétel',
+        <Tab.Screen name="Készletmozgatás" component={StockMovementScreen} options={{ tabBarLabel: 'Mozgatás',
             tabBarIcon: () => (
               <Image source={require('../assets/idkIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
+              <Image source={require('../assets/StockMovementIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
             ),
           }}
         />

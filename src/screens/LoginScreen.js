@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../style/LoginScreenStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { BASE_URL } from '../services/api';
 export default function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,12 +18,18 @@ export default function LoginScreen({ onLogin }) {
     if (!password) return Alert.alert('Hiba', 'Kérjük, adja meg a jelszavát.');
 
     try {
+<<<<<<< Updated upstream
       const response = await axios.post('http://192.168.1.3:3000/login', {
+=======
+       const response = await axios.post(`${BASE_URL}/login`, {
+>>>>>>> Stashed changes
         newEmail: email,
         newPassword: password
       });
       const { token, message } = response.data;
+      const { token, userId, message } = response.data;
       await AsyncStorage.setItem('token', token);
+      await AsyncStorage.setItem('userId', String(userId));
       Alert.alert('Sikeres bejelentkezés', message);
       onLogin();
     } catch (error) {
@@ -42,6 +49,9 @@ export default function LoginScreen({ onLogin }) {
      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} 
        >
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+    >
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Text style={styles.header}>Bejelentkezés</Text>
       <TextInput
@@ -53,6 +63,8 @@ export default function LoginScreen({ onLogin }) {
       />
       
        <View style={styles.passwordRow}>
+
+      <View style={styles.passwordRow}>
         <TextInput
           style={styles.passwordInput}
           value={password}
@@ -63,8 +75,12 @@ export default function LoginScreen({ onLogin }) {
       <Pressable onPress={() => setShowPassword(prev => !prev)} style={{ padding: 10 }}>
   <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#30336b" />
 </Pressable>
+        <Pressable onPress={() => setShowPassword(prev => !prev)} style={styles.eyeIcon} >
+          <Ionicons name={showPassword ? 'eye-off' : 'eye'} tyle={styles.eyeIconInner} />
+        </Pressable>
       </View>
        
+
       <Pressable onPress={login} style={styles.button}>
         <Text style={styles.buttonText}>Bejelentkezés</Text>
       </Pressable>
