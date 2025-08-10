@@ -55,10 +55,8 @@ export default function AppNavigator({ products, partners }) {
           }}
         />
 
-        <Tab.Screen name="Kivét" component={WithdrawalScreen} options={{ tabBarLabel: 'Kivétel',
         <Tab.Screen name="Készletmozgatás" component={StockMovementScreen} options={{ tabBarLabel: 'Mozgatás',
             tabBarIcon: () => (
-              <Image source={require('../assets/idkIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
               <Image source={require('../assets/StockMovementIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
             ),
           }}
