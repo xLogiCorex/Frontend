@@ -1,11 +1,42 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useLayoutEffect, useEffect, useCallback } from 'react';
+import { View, Text, FlatList, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { fetchProducts } from '../services/productService';
 import styles from '../style/CatalogueScreenStyle';
 
-export default function CatalogueScreen({ navigation, products }) {
+export default function CatalogueScreen({ navigation }) {
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
+
+  // 🔹 1. Amikor a képernyő fókuszba kerül → újratöltés az adatbázisból
+  useFocusEffect(
+    useCallback(() => {
+      const loadProducts = async () => {
+        try {
+          const data = await fetchProducts();
+          setProducts(data);
+        } catch (err) {
+          Alert.alert('Hiba', 'Nem sikerült betölteni a termékeket.');
+        }
+      };
+      loadProducts();
+    }, [])
+  );
+
+  // 🔹 2. Szűrés keresés alapján
+  useEffect(() => {
+    if (search.trim() === '') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(
+        products.filter(p =>
+          (p.name?.toLowerCase() || '').includes(search.toLowerCase())
+        )
+      );
+    }
+  }, [search, products]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -16,17 +47,6 @@ export default function CatalogueScreen({ navigation, products }) {
       ),
     });
   }, [navigation, searchVisible]);
-
-  useEffect(() => {
-    if (search === '') {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(p =>
-        (p.name?.toLowerCase() || '').includes(search.toLowerCase())
-      );
-      setFilteredProducts(filtered);
-    }
-  }, [search, products]);
 
   return (
     <View style={styles.catalogueContainer}>
@@ -50,10 +70,12 @@ export default function CatalogueScreen({ navigation, products }) {
             <Text
               style={[
                 styles.productStock,
-                { color: item.stockQuantity > 0 ? '#6ab04c' : '#eb4d4b' },
+                { color: item.isActive ? '#6ab04c' : '#eb4d4b' }
               ]}
             >
-              {item.stockQuantity > 0 ? `Raktáron: ${item.stockQuantity} db` : 'Pillanatnyilag nem elérhető'}
+              {item.isActive
+                ? `Raktáron: ${item.stockQuantity} db`
+                : 'Pillanatnyilag nem elérhető'}
             </Text>
           </View>
         )}
