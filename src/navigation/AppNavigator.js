@@ -5,10 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Képernyők importálása
 import OrderScreen from '../screens/OrderScreen';
 import WithdrawalScreen from '../screens/WithdrawalScreen';
+import StockMovementScreen from '../screens/StockMovementScreen';
 import InvoiceScreen from '../screens/InvoiceScreen';
 
 import CatalogueStack from './CatalogueStack';
 import PartnerStack from './PartnerStack';  
+import { Button } from 'react-native-web';
+//import InvoiceScreen from '../screens/InvoiceScreen';
 
 // Példában props-on keresztül kapja a termékeket és partnereket
 const Tab = createBottomTabNavigator();
@@ -63,9 +66,9 @@ export default function AppNavigator({ products, partners }) {
           }}
         />
 
-        <Tab.Screen name="Kivét" component={WithdrawalScreen} options={{ tabBarLabel: 'Kivétel',
+        <Tab.Screen name="Készletmozgatás" component={StockMovementScreen} options={{ tabBarLabel: 'Mozgatás',
             tabBarIcon: () => (
-              <Image source={require('../assets/idkIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
+              <Image source={require('../assets/StockMovementIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
             ),
           }}
         />

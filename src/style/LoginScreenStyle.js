@@ -45,10 +45,15 @@ export default StyleSheet.create({
     color: '#2f3640',
   },
   eyeIcon: {
+    padding: 10,
     paddingHorizontal: 12,
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  eyeIconInner: {
+    color: '#30336b',
+    fontSize: 30
   },
   button: {
     width: '80%',
@@ -58,10 +63,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
-    },
+  },
   buttonText: {
     color: '#dff9fb',
     fontSize: 18,
     fontWeight: 'bold',
-    },
- });
+  },
+});
