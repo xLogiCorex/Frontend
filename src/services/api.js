@@ -5,7 +5,7 @@ import Constants from 'expo-constants';
 const PORT = 3000;
 
 // Fix cím éles környezethez
-const PROD_URL = 'https://api.sajatdomain.hu'; // <-- ezt állítsd be
+const PROD_URL = 'http://localhost:3000'; // <-- ezt állítsd be
 
 // Megpróbáljuk kinyerni az Expo fejlesztői IP-t
 const debuggerHost =
