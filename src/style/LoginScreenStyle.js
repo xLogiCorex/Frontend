@@ -63,13 +63,10 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
-    },
   },
   buttonText: {
     color: '#dff9fb',
     fontSize: 18,
     fontWeight: 'bold',
-    },
- });
   },
 });
