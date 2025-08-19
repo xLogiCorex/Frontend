@@ -1,3 +1,10 @@
+<<<<<<< Updated upstream
+import React from 'react';
+import { View, Text, FlatList } from 'react-native';
+import styles from '../style/CatalogueScreenStyle';
+
+export default function catalogueScreen({ products }) {
+=======
 import React, { useState, useLayoutEffect, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -48,6 +55,7 @@ export default function CatalogueScreen({ navigation }) {
     });
   }, [navigation, searchVisible]);
 
+>>>>>>> Stashed changes
   return (
     <View style={styles.catalogueContainer}>
       {searchVisible && (
@@ -67,6 +75,10 @@ export default function CatalogueScreen({ navigation }) {
             <Text style={styles.productName}>{item.name}</Text>
             <Text>{item.description}</Text>
             <Text style={styles.productPrice}>{item.price} Ft</Text>
+<<<<<<< Updated upstream
+            <Text style={[styles.productStock, { color: item.stockQuantity > 0 ? '#6ab04c' : '#eb4d4b' }]}>
+              {item.stockQuantity > 0 ? `Raktáron: ${item.stockQuantity} db` : 'Pillanatnyilag nem elérhető'}
+=======
             <Text
               style={[
                 styles.productStock,
@@ -76,6 +88,7 @@ export default function CatalogueScreen({ navigation }) {
               {item.isActive
                 ? `Raktáron: ${item.stockQuantity} db`
                 : 'Pillanatnyilag nem elérhető'}
+>>>>>>> Stashed changes
             </Text>
           </View>
         )}

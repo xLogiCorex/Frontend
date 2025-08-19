@@ -8,11 +8,14 @@ import WithdrawalScreen from '../screens/WithdrawalScreen';
 import StockMovementScreen from '../screens/StockMovementScreen';
 import InvoiceScreen from '../screens/InvoiceScreen';
 
+<<<<<<< Updated upstream
+=======
 import CatalogueStack from './CatalogueStack';
 import PartnerStack from './PartnerStack';  
 import { Button } from 'react-native-web';
 //import InvoiceScreen from '../screens/InvoiceScreen';
 
+>>>>>>> Stashed changes
 // Példában props-on keresztül kapja a termékeket és partnereket
 const Tab = createBottomTabNavigator();
 
