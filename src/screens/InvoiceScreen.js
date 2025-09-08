@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
-import styles from '../style/CatalogueScreenStyle';
-import styles from '../style/PartnerScreenStyle';
+import styles from '../style/InvoiceScreenStyle';
 
-export default function WithdrawalScreen() {
+
 export default function InvoiceScreen() {
   return (
     <View style={styles.screen}>

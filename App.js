@@ -9,14 +9,15 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [listOfProducts, setListOfProducts] = useState([]);
   const [listOfPartners, setListOfPartners] = useState([]);
+  const [authToken, setAuthToken] = useState(null);
 
-
-async function handleLogin() {
+async function handleLogin(tokenFromServer) {
   setIsLoggedIn(true);
+  setAuthToken(tokenFromServer);
   try {
     const [products, partners] = await Promise.all([
-      fetchProducts(),
-      fetchPartners()
+      fetchProducts(tokenFromServer),
+      fetchPartners(tokenFromServer)
     ]);
     setListOfProducts(products);
     setListOfPartners(partners);
@@ -30,6 +31,6 @@ async function handleLogin() {
   }
 
   return (
-    <AppNavigator products={listOfProducts} partners={listOfPartners} />
+    <AppNavigator products={listOfProducts} partners={listOfPartners} token={authToken}/>
   );
 }

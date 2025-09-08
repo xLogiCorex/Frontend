@@ -27,7 +27,7 @@ export default function LoginScreen({ onLogin }) {
       await AsyncStorage.setItem('token', token);
       await AsyncStorage.setItem('userId', String(userId));
       Alert.alert('Sikeres bejelentkezés', message);
-      onLogin();
+      onLogin(token);
     } catch (error) {
       let msg = 'Ismeretlen hiba történt.';
       if (error.response && error.response.data && error.response.data.message) {
@@ -65,12 +65,7 @@ export default function LoginScreen({ onLogin }) {
       <Pressable onPress={() => setShowPassword(prev => !prev)} style={{ padding: 10 }}>
   <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#30336b" />
 </Pressable>
-        <Pressable onPress={() => setShowPassword(prev => !prev)} style={styles.eyeIcon} >
-          <Ionicons name={showPassword ? 'eye-off' : 'eye'} tyle={styles.eyeIconInner} />
-        </Pressable>
       </View>
-      
-
       <Pressable onPress={login} style={styles.button}>
         <Text style={styles.buttonText}>Bejelentkezés</Text>
       </Pressable>

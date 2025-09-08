@@ -11,4 +11,5 @@ export async function login(email, password) {
 
 export async function logout() {
   await AsyncStorage.removeItem('token');
+  await AsyncStorage.removeItem('userId');
 }
