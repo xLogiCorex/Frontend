@@ -68,25 +68,40 @@ export default function NewOrderScreen({ navigation }) {
   const totalNet = items.reduce((s, it) => s + it.price * it.quantity, 0);
 
   const handleSave = async () => {
-    if (!partnerId) {
-      Alert.alert('Hiányzó adat', 'Válassz partnert!');
-      return;
-    }
-    if (items.length === 0) {
-      Alert.alert('Üres rendelés', 'Adj hozzá legalább egy tételt!');
-      return;
-    }
-    try {
-        const token = await AsyncStorage.getItem('token');
-        const payload = { partnerId, items: items.map(it => ({ productId: it.productId, quantity: it.quantity })) };
-        const created = await createOrder(payload, token);
-        Alert.alert('Siker', 'Megrendelés rögzítve.', [
-        { text: 'OK', onPress: () => navigation.replace('OrderDetails', { id: created.orderId }) },
-      ]);
-    } catch {
-      Alert.alert('Hiba', 'A mentés nem sikerült.');
-    }
-  };
+  if (!partnerId) {
+    Alert.alert('Hiányzó adat', 'Válassz partnert!');
+    return;
+  }
+  if (items.length === 0) {
+    Alert.alert('Üres rendelés', 'Adj hozzá legalább egy tételt!');
+    return;
+  }
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const payload = { 
+      partnerId, 
+      items: items.map(it => ({ 
+        productId: it.productId, 
+        quantity: it.quantity 
+      })) 
+    };
+    const created = await createOrder(payload, token);
+    
+    Alert.alert(
+      'Siker', 
+      'Megrendelés rögzítve.',
+      [
+        { 
+          text: 'OK', 
+          onPress: () => navigation.replace('OrderDetails', { id: created.orderId }) 
+        }
+      ]
+    );
+  } catch (error) {
+    console.error('Mentési hiba:', error);
+    Alert.alert('Hiba', 'A mentés nem sikerült.');
+  }
+};
 
   return (
     <View style={styles.screen}>

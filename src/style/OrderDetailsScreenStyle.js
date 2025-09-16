@@ -1,77 +1,163 @@
+// OrderDetailsScreenStyle.js
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    screen: { 
-        flex: 1, 
-        backgroundColor: '#f6f7fb' 
+    screen: {
+        flex: 1,
+        backgroundColor: '#f8f9fa',
     },
-    center: { 
-        flex: 1, 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+    container: {
+        flex: 1,
+        padding: 16,
     },
-    header: { 
-        backgroundColor: '#fff', 
-        margin: 12, 
-        padding: 14, 
-        borderRadius: 12, 
-        borderWidth: 1, 
-        borderColor: '#e5e7eb' 
+    header: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 12,
+        marginBottom: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
-    title: { 
-        fontWeight: '800', 
-        fontSize: 16 
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#1a1a1a',
+        marginBottom: 4,
     },
-    subtitle: { 
-        marginTop: 4 
+    subtitle: {
+        fontSize: 16,
+        color: '#666',
+        marginBottom: 8,
     },
-    meta: { 
-        marginTop: 6, 
-        color: '#6b7280', 
-        fontSize: 12 
+    meta: {
+        fontSize: 14,
+        color: '#888',
+        marginBottom: 4,
     },
-    row: { 
-        backgroundColor: '#fff', 
-        marginHorizontal: 12, 
-        marginTop: 10, 
-        padding: 12, 
-        borderRadius: 12, 
-        borderWidth: 1, 
-        borderColor: '#e5e7eb', 
-        flexDirection: 'row', 
-        gap: 10 
+    statusBadge: {
+        alignSelf: 'flex-start',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 20,
+        marginTop: 8,
     },
-    pname: { 
-        fontWeight: '600' 
+    statusText: {
+        color: 'white',
+        fontWeight: '600',
+        fontSize: 12,
     },
-    pmeta: { 
-        color: '#6b7280', 
-        marginTop: 2 
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        color: '#1a1a1a',
+        paddingHorizontal: 4,
     },
-    price: { 
-        fontWeight: '700', 
-        textAlign: 'right' 
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        padding: 16,
+        borderRadius: 12,
+        marginBottom: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.05,
+        shadowRadius: 2,
+        elevation: 2,
     },
-    totalRow: { 
-        textAlign: 'right', 
-        marginTop: 6 
+    productInfo: {
+        flex: 1,
+        marginRight: 12,
     },
-    footer: { 
-        margin: 12, 
-        backgroundColor: '#fff', 
-        padding: 14, 
-        borderRadius: 12, 
-        borderWidth: 1, 
-        borderColor: '#e5e7eb', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'space-between' 
+    pname: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#1a1a1a',
+        marginBottom: 4,
     },
-    totalLabel: { 
-        color: '#6b7280' 
+    pmeta: {
+        fontSize: 14,
+        color: '#666',
     },
-    totalValue: { 
-        fontSize: 18, 
-        fontWeight: '800' 
+    priceSection: {
+        alignItems: 'flex-end',
+    },
+    price: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#2c3e50',
+        marginBottom: 4,
+    },
+    totalRow: {
+        fontSize: 14,
+        color: '#7f8c8d',
+    },
+    footer: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 12,
+        marginTop: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    totalLabel: {
+        fontSize: 16,
+        color: '#7f8c8d',
+        marginBottom: 8,
+    },
+    totalValue: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#2c3e50',
+    },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    backButton: {
+        position: 'absolute',
+        top: 16,
+        left: 16,
+        zIndex: 10,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 4,
+    },
+    vatRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    grossRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 16,
+        paddingTop: 16,
+        borderTopWidth: 1,
+        borderTopColor: '#ecf0f1',
+    },
+    grossLabel: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#1a1a1a',
+    },
+    grossValue: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#2c3e50',
     },
 });
