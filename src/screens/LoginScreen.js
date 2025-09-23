@@ -18,15 +18,16 @@ export default function LoginScreen({ onLogin }) {
     if (!password) return Alert.alert('Hiba', 'Kérjük, adja meg a jelszavát.');
 
     try {
-       const response = await axios.post(`${BASE_URL}/login`, {
+      const response = await axios.post(`${BASE_URL}/login`, {
         newEmail: email,
         newPassword: password
       });
+
       const { token, userId, message } = response.data;
       await AsyncStorage.setItem('token', token);
       await AsyncStorage.setItem('userId', String(userId));
       Alert.alert('Sikeres bejelentkezés', message);
-      onLogin();
+      onLogin(token);
     } catch (error) {
       let msg = 'Ismeretlen hiba történt.';
       if (error.response && error.response.data && error.response.data.message) {
@@ -41,9 +42,9 @@ export default function LoginScreen({ onLogin }) {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
-    >
+      >
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Text style={styles.header}>Bejelentkezés</Text>
       <TextInput
@@ -53,7 +54,6 @@ export default function LoginScreen({ onLogin }) {
         placeholder='Email cím'
         autoCapitalize='none'
       />
-
       <View style={styles.passwordRow}>
         <TextInput
           style={styles.passwordInput}
@@ -62,11 +62,10 @@ export default function LoginScreen({ onLogin }) {
           placeholder='Jelszó'
           secureTextEntry={!showPassword}
         />
-        <Pressable onPress={() => setShowPassword(prev => !prev)} style={styles.eyeIcon} >
-          <Ionicons name={showPassword ? 'eye-off' : 'eye'} tyle={styles.eyeIconInner} />
-        </Pressable>
+      <Pressable onPress={() => setShowPassword(prev => !prev)} style={{ padding: 10 }}>
+  <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#30336b" />
+</Pressable>
       </View>
-
       <Pressable onPress={login} style={styles.button}>
         <Text style={styles.buttonText}>Bejelentkezés</Text>
       </Pressable>

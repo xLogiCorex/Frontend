@@ -51,7 +51,6 @@ export default function StockMovementScreen({ navigation }) {
     });
   }, [navigation, searchVisible]);
 
-
   const loadProducts = async () => {
     try {
       setLoading(true);
