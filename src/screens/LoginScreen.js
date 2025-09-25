@@ -12,6 +12,7 @@ export default function LoginScreen({ onLogin }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  // Bejelentkezési logika
   async function login() {
     if (!email && !password) return Alert.alert('Hiba', 'Kérjük, adja meg az email címét és a jelszavát.');
     if (!email) return Alert.alert('Hiba', 'Kérjük, adja meg az email címét.');
@@ -37,16 +38,21 @@ export default function LoginScreen({ onLogin }) {
     }
   }
 
+  // Elfelejtett jelszó funkció
   function forgottenPassword() {
     Alert.alert('Elfelejtett jelszó', 'Kérjük, lépj kapcsolatba az ügyfélszolgálattal a jelszó visszaállításához.');
   }
 
   return (
-      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+      // A tartalom eltolása, ha megjelenik a billentyűzet
+      <KeyboardAvoidingView 
+          style={styles.container} 
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
       >
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Text style={styles.header}>Bejelentkezés</Text>
+      {/* Email bemenet */}
       <TextInput
         style={styles.textInput}
         value={email}
@@ -54,6 +60,7 @@ export default function LoginScreen({ onLogin }) {
         placeholder='Email cím'
         autoCapitalize='none'
       />
+      {/* Jelszó bemenet */}
       <View style={styles.passwordRow}>
         <TextInput
           style={styles.passwordInput}
@@ -62,13 +69,16 @@ export default function LoginScreen({ onLogin }) {
           placeholder='Jelszó'
           secureTextEntry={!showPassword}
         />
+         {/* Jelszó mutatása/elrejtése gomb */}
       <Pressable onPress={() => setShowPassword(prev => !prev)} style={{ padding: 10 }}>
-  <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#30336b" />
-</Pressable>
+      <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="#30336b" />
+      </Pressable>
       </View>
+      {/* Bejelentkezés gomb */}  
       <Pressable onPress={login} style={styles.button}>
         <Text style={styles.buttonText}>Bejelentkezés</Text>
       </Pressable>
+      {/* Elfelejtett jelszó gomb */}
       <Pressable onPress={forgottenPassword} style={styles.button}>
         <Text style={styles.buttonText}>Elfelejtett jelszó</Text>
       </Pressable>

@@ -10,7 +10,7 @@ export default function CatalogueScreen({ navigation }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
 
-  // 🔹 1. Amikor a képernyő fókuszba kerül → újratöltés az adatbázisból
+  // Újratöltés az adatbázisból
   useFocusEffect(
     useCallback(() => {
       const loadProducts = async () => {
@@ -25,7 +25,7 @@ export default function CatalogueScreen({ navigation }) {
     }, [])
   );
 
-  // 🔹 2. Szűrés keresés alapján
+  // Szűrés keresés alapján
   useEffect(() => {
     if (search.trim() === '') {
       setFilteredProducts(products);
@@ -51,6 +51,7 @@ export default function CatalogueScreen({ navigation }) {
   return (
     <View style={styles.catalogueContainer}>
       {searchVisible && (
+        // Kereső mező
         <TextInput
           placeholder="Keresés termék vagy leírás alapján..."
           value={search}
@@ -58,6 +59,7 @@ export default function CatalogueScreen({ navigation }) {
           style={styles.searchInput}
         />
       )}
+      {/* Termék lista megjelenítése */}
       <FlatList
         data={filteredProducts}
         keyExtractor={item => item.id.toString()}

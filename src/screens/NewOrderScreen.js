@@ -18,9 +18,8 @@ export default function NewOrderScreen({ navigation }) {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
 
-  const [items, setItems] = useState([]); // {productId, sku, name, unit, price, quantity}
+  const [items, setItems] = useState([]); 
 
-  // PARTNEREK BETÖLTÉSE
   useEffect(() => {
     (async () => {
       try {
@@ -35,7 +34,7 @@ export default function NewOrderScreen({ navigation }) {
     })();
   }, []);
 
-  // TERMÉKEK KERESÉSE DEBOUNCE-AL
+  // Termékek keresése
   const doSearch = useMemo(() => debounce(async (text) => {
     try {
       setLoadingProducts(true);
@@ -50,7 +49,7 @@ export default function NewOrderScreen({ navigation }) {
     doSearch(query);
   }, [query]);
 
-  // TÉTELEK HOZZÁADÁSA / FRISSÍTÉSE
+  // Tételek hozzáadása/frissítése
   const upsertItem = (p, qty) => {
     setItems(prev => {
       const idx = prev.findIndex(it => it.productId === p.id);
@@ -65,8 +64,10 @@ export default function NewOrderScreen({ navigation }) {
     });
   };
 
+  // Nettó összeg számítása
   const totalNet = items.reduce((s, it) => s + it.price * it.quantity, 0);
 
+  // Megrendelés mentése
   const handleSave = async () => {
   if (!partnerId) {
     Alert.alert('Hiányzó adat', 'Válassz partnert!');
@@ -93,7 +94,7 @@ export default function NewOrderScreen({ navigation }) {
       [
         { 
           text: 'OK', 
-          onPress: () => navigation.replace('OrderDetails', { id: created.orderId }) 
+          onPress: () => navigation.navigate('MyOrdersScreen')
         }
       ]
     );
@@ -105,7 +106,7 @@ export default function NewOrderScreen({ navigation }) {
 
   return (
     <View style={styles.screen}>
-      {/* PARTNER KIVÁLASZTÁS */}
+      {/* Partner kiválasztás */}
       <Text style={styles.sectionTitle}>Partner</Text>
       <View style={styles.dropdown}>
         {loadingPartners ? (
@@ -124,10 +125,11 @@ export default function NewOrderScreen({ navigation }) {
         )}
       </View>
 
-      {/* TERMÉKEK KERESÉSE */}
+      {/* Termékek keresése */}
       <Text style={styles.sectionTitle}>Termékek</Text>
       <SearchBar value={query} onChangeText={setQuery} placeholder="Keresés név vagy SKU szerint" />
       {loadingProducts && <ActivityIndicator style={{ marginTop: 8 }} />}
+      {/* Termék találatok listája */}
       <FlatList
         data={products}
         keyExtractor={p => String(p.id)}
@@ -142,7 +144,7 @@ export default function NewOrderScreen({ navigation }) {
         ListEmptyComponent={!loadingProducts ? <Text style={styles.empty}>Nincs találat.</Text> : null}
       />
 
-      {/* ALSÓ ÖSSZESÍTŐ ÉS MENTÉS */}
+      {/* Alsó összesítés és mentés */}
       <View style={styles.footer}>
         <View>
           <Text style={styles.totalLabel}>Összesen (nettó)</Text>
@@ -156,7 +158,7 @@ export default function NewOrderScreen({ navigation }) {
   );
 }
 
-// TERMÉK SOR
+// Termék sor
 function ProductRow({ product, quantity, onChange }) {
   const [localQty, setLocalQty] = useState(String(quantity || '0'));
   useEffect(() => setLocalQty(String(quantity || '0')), [quantity]);
@@ -178,6 +180,7 @@ function ProductRow({ product, quantity, onChange }) {
         <TouchableOpacity style={rowStyles.btn} onPress={() => commit(Math.max(0, Number(localQty) - 1))}>
           <Text style={rowStyles.btnText}>−</Text>
         </TouchableOpacity>
+        {/* Mennyiség beviteli mező */}
         <TextInput
           value={localQty}
           onChangeText={setLocalQty}
@@ -185,6 +188,7 @@ function ProductRow({ product, quantity, onChange }) {
           keyboardType="number-pad"
           style={rowStyles.input}
         />
+        {/* Mennyiség növelése gomb */}
         <TouchableOpacity style={rowStyles.btn} onPress={() => commit(Number(localQty) + 1)}>
           <Text style={rowStyles.btnText}>+</Text>
         </TouchableOpacity>

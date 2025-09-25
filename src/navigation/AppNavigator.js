@@ -3,18 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Képernyők importálása
-import MyOrderScreen from '../screens/MyOrdersScreen';
-import WithdrawalScreen from '../screens/WithdrawalScreen';
 import StockMovementScreen from '../screens/StockMovementScreen';
 import InvoiceScreen from '../screens/InvoiceScreen';
 
 import CatalogueStack from './CatalogueStack';
 import PartnerStack from './PartnerStack';  
 import OrderStack from './OrderStack';
-import { Button } from 'react-native-web';
-//import InvoiceScreen from '../screens/InvoiceScreen';
 
-// Példában props-on keresztül kapja a termékeket és partnereket
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigator({ products, partners, token }) {
@@ -26,6 +21,7 @@ export default function AppNavigator({ products, partners, token }) {
       }}
       >
 
+      {/* Katalógus képernyő */}
       <Tab.Screen
         name="Katalógus"
         options={{
@@ -43,6 +39,7 @@ export default function AppNavigator({ products, partners, token }) {
         {() => <CatalogueStack products={products} />}
       </Tab.Screen>
 
+      {/* Partnerek képernyő */}
       <Tab.Screen
         name="Partnerek"
         options={{
@@ -60,6 +57,7 @@ export default function AppNavigator({ products, partners, token }) {
         {() => <PartnerStack partners={partners} />}
       </Tab.Screen>
 
+      {/* Megrendelések képernyő */}
       <Tab.Screen
         name="Megrendelések"
         options={{
@@ -81,17 +79,26 @@ export default function AppNavigator({ products, partners, token }) {
         />)}
       </Tab.Screen>
 
-
+      {/* Készletmozgás képernyő */}
       <Tab.Screen name="Készletmozgatás" component={StockMovementScreen} options={{ tabBarLabel: 'Mozgatás',
           tabBarIcon: () => (
-            <Image source={require('../assets/StockMovementIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain" />
+            <Image 
+            source={require('../assets/StockMovementIcon.png')} 
+            style={{ width: 30, height: 30, tintColor: '#b2bec3' }} 
+            resizeMode="contain" 
+            />
           ),
         }}
       />
 
+      {/* Számlázás képernyő */}
       <Tab.Screen name="Számlázás" component={InvoiceScreen}  options={{ tabBarLabel: 'Számlázás',
           tabBarIcon: () => (
-            <Image source={require('../assets/invoicingIcon.png')} style={{ width: 30, height: 30, tintColor: '#b2bec3' }} resizeMode="contain"  />
+            <Image 
+            source={require('../assets/invoicingIcon.png')} 
+            style={{ width: 30, height: 30, tintColor: '#b2bec3' }} 
+            resizeMode="contain"  
+            />
           ),
         }}
       />

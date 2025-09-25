@@ -13,14 +13,18 @@ import { getInvoices, getInvoicePdf } from '../services/invoiceService';
 const InvoiceItem = ({ item, token }) => {
     const [downloading, setDownloading] = useState(false);
 
+    // Letöltés funkció
     const downloadInvoice = async () => {
         try {
             setDownloading(true);
             const pdfUrl = await getInvoicePdf(item.id, token);
             
+            // Webes környezet (Expo Web)
             if (Platform.OS === 'web') {
                 window.open(pdfUrl, '_blank');
-            } else {
+            } 
+            // Mobil környezet (iOS/Android)
+            else {
                 const fileUri = FileSystem.documentDirectory + `szamla_${item.invoiceNumber}.pdf`;
                 const { uri } = await FileSystem.downloadAsync(pdfUrl, fileUri);
                 
@@ -50,7 +54,7 @@ const InvoiceItem = ({ item, token }) => {
                     {item.totalGross?.toLocaleString('hu-HU')} Ft
                 </Text>
             </View>
-            
+            {/* Letöltés gomb */}
             <TouchableOpacity 
                 style={[styles.downloadButton, downloading && styles.downloadButtonDisabled]}
                 onPress={downloadInvoice}
@@ -64,11 +68,13 @@ const InvoiceItem = ({ item, token }) => {
     );
 };
 
+// Fő Számlázás Képernyő
 export default function MyInvoicesScreen({ token }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
 
+    // Számlák betöltése az API-ból
     const load = async () => {
         if (!token) return; 
         try {
@@ -87,6 +93,7 @@ export default function MyInvoicesScreen({ token }) {
         if (token) load();
     }, [token]);
 
+    // "Húzd le a frissítéshez" funkció
     const onRefresh = async () => {
         setRefreshing(true);
         await load();
@@ -102,6 +109,7 @@ export default function MyInvoicesScreen({ token }) {
         );
     }
 
+    // Számlák listája
     return (
         <View style={styles.screen}>
             <FlatList

@@ -6,7 +6,7 @@ import axios from '../services/api';
 import { fetchProducts } from '../services/productService';
 
 const getMovementLabel = (type) =>
-  type === 'in' ? 'Bevételezés' : type === 'out' ? 'Kivét' : 'Áthelyezés';
+  type === 'in' ? 'Bevételezés' : type === 'out' ? 'Kivét' : type === 'transfer' ? 'Áthelyezés' : 'Mozgatás';
 
 export default function StockMovementScreen({ navigation }) {
   const [products, setProducts] = useState([]);
@@ -72,6 +72,7 @@ export default function StockMovementScreen({ navigation }) {
     setModalVisible(true);
   };
 
+
   const handleSave = async () => {
     if (!quantity || isNaN(quantity) || parseInt(quantity) <= 0) {
       Alert.alert("Hiba", "Érvényes mennyiséget adj meg!");
@@ -80,24 +81,37 @@ export default function StockMovementScreen({ navigation }) {
     try {
       const token = await AsyncStorage.getItem('token');
       const userId = await AsyncStorage.getItem('userId');
-      await axios.post('/stock-movements', {
-        productId: selectedProduct.id, type: movementType, quantity: parseInt(quantity), note, userId
-      }, {
+      const apiEndpoint = `/stockMovements/${movementType}`;
+      
+      const requestData = {
+          productId: selectedProduct.id, 
+          quantity: parseInt(quantity), 
+          userId,
+      };
+
+      if (movementType === 'transfer') {
+          requestData.transferReason = note; 
+      } else {
+          requestData.note = note;
+      }
+
+      await axios.post(apiEndpoint, requestData, { 
         headers: { Authorization: `Bearer ${token}` }
       });
+      
       Alert.alert("Siker", "Készletmozgás rögzítve.");
       loadProducts();
       setModalVisible(false);
     } catch (err) {
       Alert.alert("Hiba", err.response?.data?.message || "Nem sikerült menteni.");
     }
-  };
+};
 
   const loadMyMovements = async () => {
     try {
       setLoadingMyMovements(true);
       const token = await AsyncStorage.getItem('token');
-      const res = await axios.get('/stock-movements/my', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.get('/stockMovements/my', { headers: { Authorization: `Bearer ${token}` } });
       setMyMovements(res.data);
       setMyMovementsVisible(true);
     } catch (err) {
@@ -139,7 +153,7 @@ export default function StockMovementScreen({ navigation }) {
               <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#eb4d4b' }]} onPress={() => openMovementModal(item, 'out')}>
                 <Text style={styles.buttonText}>- Kivét</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#13109eff' }]} onPress={() => openMovementModal(item, 'internal')}>
+              <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#13109eff' }]} onPress={() => openMovementModal(item, 'transfer')}>
                 <Text style={styles.buttonText}>↔ Áthelyezés</Text>
               </TouchableOpacity>
             </View>
@@ -154,7 +168,7 @@ export default function StockMovementScreen({ navigation }) {
             <Text style={styles.modalTitle}>{getMovementLabel(movementType)}</Text>
             <Text style={{ marginBottom: 10 }}>{selectedProduct?.name}</Text>
             <TextInput placeholder="Mennyiség" value={quantity} keyboardType="numeric" onChangeText={setQuantity} style={styles.input} />
-            <TextInput placeholder={movementType === 'internal' ? "Cél raktárhely / megjegyzés" : "Megjegyzés (opcionális)"} value={note} onChangeText={setNote} style={styles.input} />
+            <TextInput placeholder={movementType === 'transfer' ? "Cél raktárhely / megjegyzés" : "Megjegyzés (opcionális)"} value={note} onChangeText={setNote} style={styles.input} />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
               <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#6ab04c', flex: 1, marginRight: 5 }]} onPress={handleSave}>
                 <Text style={styles.buttonText}>Mentés</Text>
@@ -183,8 +197,8 @@ export default function StockMovementScreen({ navigation }) {
             <TouchableOpacity onPress={() => setFilterType('out')} style={{ marginRight: 10 }}>
               <Text style={{ color: filterType === 'out' ? '#6ab04c' : '#333' }}>Kivét</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setFilterType('internal')}>
-              <Text style={{ color: filterType === 'internal' ? '#6ab04c' : '#333' }}>Áthelyezés</Text>
+            <TouchableOpacity onPress={() => setFilterType('transfer')}>
+              <Text style={{ color: filterType === 'transfer' ? '#6ab04c' : '#333' }}>Áthelyezés</Text>
             </TouchableOpacity>
           </View>
 

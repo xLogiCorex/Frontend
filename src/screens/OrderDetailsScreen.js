@@ -33,6 +33,7 @@ const statusLabels = {
     on_hold: 'Felfüggesztve',
     };
 
+    // Megrendelés Részletek Képernyő
     export default function OrderDetailsScreen({ route, navigation }) {
     const { id } = route.params;
     const [order, setOrder] = useState(null);
@@ -50,7 +51,7 @@ const statusLabels = {
             }
 
             // API hívás a megrendelés adatainak lekérésére
-            const data = await getOrderById(id, token); // <- Token átadása
+            const data = await getOrderById(id, token);
             setOrder(data);
             
         } catch (e) {
@@ -62,7 +63,7 @@ const statusLabels = {
         })();
     }, [id]);
 
-
+    // Betöltés alatti kijelző
     if (loading) {
         return (
         <View style={styles.screen}>
@@ -75,6 +76,7 @@ const statusLabels = {
         );
     }
 
+    // Hiba/üres adat esetén megjelenő kijelző
     if (!order) {
         return (
         <View style={styles.screen}>
@@ -84,6 +86,7 @@ const statusLabels = {
             <Text style={{ marginTop: 16, color: '#7f8c8d', textAlign: 'center', padding: 20 }}>
                 A megrendelés részletei hamarosan elérhetőek lesznek.
             </Text>
+            {/* Vissza gomb a hiba/üres kijelzőn */}
             <TouchableOpacity 
                 style={{ 
                 backgroundColor: '#3498db', 
@@ -101,10 +104,11 @@ const statusLabels = {
         );
     }
 
+    // Megrendelési Részletek Megjelenítése
     return (
         <View style={styles.screen}>
         <StatusBar backgroundColor="#2c3e50" />
-        
+        {/* Vissza navigációs gomb */}
         <TouchableOpacity 
             style={styles.backButton}
             onPress={() => navigation.goBack()}

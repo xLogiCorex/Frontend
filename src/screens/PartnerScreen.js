@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity, Image } from 'react-native';
 import styles from '../style/PartnerScreenStyle';
 
+// Partner Képernyő
 export default function PartnerScreen({ navigation, partners }) {
   const [search, setSearch] = useState('');
   const [filteredPartners, setFilteredPartners] = useState(partners);
@@ -17,6 +18,7 @@ export default function PartnerScreen({ navigation, partners }) {
     });
   }, [navigation, searchVisible]);
 
+  // Keresési Logika
   useEffect(() => {
     if (search === '') {
       setFilteredPartners(partners);
@@ -37,8 +39,10 @@ export default function PartnerScreen({ navigation, partners }) {
     }
   }, [search, partners]);
 
+  // Partnerek
   return (
     <View style={styles.partnerContainer}>
+      {/* Keresőmező megjelenítése */}
       {searchVisible && (
         <TextInput
           placeholder="Keresés partner név vagy email alapján..."
@@ -47,6 +51,7 @@ export default function PartnerScreen({ navigation, partners }) {
           style={styles.searchInput}
         />
       )}
+      {/* Szűrt partnerek listázása */}
       <FlatList
         data={filteredPartners}
         keyExtractor={item => item.id.toString()}

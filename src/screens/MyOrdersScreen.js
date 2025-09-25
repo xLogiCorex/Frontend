@@ -12,6 +12,7 @@ import styles from '../style/MyOrderScreenStyle';
 import { getOrders, updateOrderStatus } from '../services/orderService';
 import { getInvoicePdf } from '../services/invoiceService';
 
+// Megrendelés aktuális státusza
 const StatusBadge = ({ status, onPress }) => {
     const statusColors = {
         new: '#f59e0b',
@@ -41,9 +42,11 @@ const StatusBadge = ({ status, onPress }) => {
     );
 };
 
+// Megjeleníti a státuszhoz illő gombot (pl. számla letöltése vagy lezárás)
 const ActionButton = ({ order, onStatusChange, token }) => {
     const [downloading, setDownloading] = useState(false);
 
+    // Számla PDF letöltése és megosztása
     const downloadInvoice = async () => {
         try {
             setDownloading(true);
@@ -71,6 +74,7 @@ const ActionButton = ({ order, onStatusChange, token }) => {
         }
     };
 
+    // Ha a megrendelés teljesítve, Számla Letöltése gombot mutat
     if (order.status === 'completed') {
         return (
             <TouchableOpacity 
@@ -85,6 +89,7 @@ const ActionButton = ({ order, onStatusChange, token }) => {
         );
     }
 
+    // Ha a megrendelés új, Lezárás gombot mutat
     if (order.status === 'new') {
         return (
             <TouchableOpacity 
@@ -99,6 +104,7 @@ const ActionButton = ({ order, onStatusChange, token }) => {
     return null;
 };
 
+// Fő Megrendelések Képernyő
 export default function MyOrdersScreen({ navigation, token }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -106,6 +112,7 @@ export default function MyOrdersScreen({ navigation, token }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
+    // Megrendelések betöltése az API-ból
     const load = async () => {
         if (!token) return; 
         try {
@@ -117,6 +124,7 @@ export default function MyOrdersScreen({ navigation, token }) {
             Alert.alert('Hiba', 'Nem sikerült betölteni a megrendeléseket.');
         } finally {
             setLoading(false);
+            setRefreshing(false);
         }
     };
 
@@ -124,6 +132,7 @@ export default function MyOrdersScreen({ navigation, token }) {
         if (token) load();
     }, [token]);
 
+    // "Húzd le a frissítéshez" funkció
     const onRefresh = async () => {
         setRefreshing(true);
         await load();
@@ -135,6 +144,7 @@ export default function MyOrdersScreen({ navigation, token }) {
         setModalVisible(true);
     };
 
+    // Megrendelés státuszának frissítése
     const updateStatus = async (newStatus) => {
         if (!selectedOrder) return;
 
@@ -167,6 +177,7 @@ export default function MyOrdersScreen({ navigation, token }) {
 
     return (
         <View style={styles.screen}>
+            {/* Megrendelések listája */}
             <FlatList
                 data={data}
                 keyExtractor={o => String(o.id)}
@@ -174,6 +185,7 @@ export default function MyOrdersScreen({ navigation, token }) {
                 renderItem={({ item }) => (
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
+                        {/* Kártya tartalma */}
                         <TouchableOpacity 
                             style={styles.cardContent}
                             onPress={() => navigation.navigate('OrderDetails', { id: item.id })}
@@ -183,13 +195,14 @@ export default function MyOrdersScreen({ navigation, token }) {
                                 <Text style={styles.subtitle}>{item.partnerName}</Text>
                                 <Text style={styles.meta}>{new Date(item.date).toLocaleString()}</Text>
                             </View>
+                            {/* Státusz jelvény, megnyitja a modalt érintésre */}
                             <StatusBadge 
                                 status={item.status} 
                                 onPress={() => openStatusModal(item)}
                             />
                         </TouchableOpacity>
                     </View>
-                    
+                    {/* Akció gomb (Számla letöltése / Lezárás) */}
                     <View style={styles.actionButtonContainer}>
                         <ActionButton 
                             order={item} 
@@ -209,6 +222,7 @@ export default function MyOrdersScreen({ navigation, token }) {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
+                {/* Státusz módosító gombok */}
                 <View style={styles.modalCenteredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalTitle}>Státusz módosítása</Text>
@@ -260,7 +274,7 @@ export default function MyOrdersScreen({ navigation, token }) {
                                 <Text style={styles.statusButtonText}>Törölve</Text>
                             </TouchableOpacity>
                         </View>
-
+                        {/* Mégse gomb */}
                         <View style={styles.modalButtonContainer}>
                             <Pressable
                                 style={[styles.modalButton, styles.modalButtonCancel]}
@@ -272,7 +286,7 @@ export default function MyOrdersScreen({ navigation, token }) {
                     </View>
                 </View>
             </Modal>
-
+            {/* Új megrendelés gomb */}
             <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('NewOrder')}>
                 <Text style={styles.fabText}>＋</Text>
             </TouchableOpacity>

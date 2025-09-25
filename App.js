@@ -11,6 +11,7 @@ export default function App() {
   const [listOfPartners, setListOfPartners] = useState([]);
   const [authToken, setAuthToken] = useState(null);
 
+// Kezeli a sikeres bejelentkezést
 async function handleLogin(tokenFromServer) {
   setIsLoggedIn(true);
   setAuthToken(tokenFromServer);
