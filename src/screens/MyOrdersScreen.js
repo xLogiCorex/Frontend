@@ -32,13 +32,14 @@ const StatusBadge = ({ status, onPress }) => {
         on_hold: 'Felfüggesztve',
     };
 
-    return (
+    return (<>
+        Státusz váltása:
         <TouchableOpacity 
             style={[styles.badge, { backgroundColor: statusColors[status] || '#9ca3af' }]}
             onPress={onPress}
         >
             <Text style={styles.badgeText}>{statusLabels[status] || status}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity></>
     );
 };
 
@@ -203,13 +204,13 @@ export default function MyOrdersScreen({ navigation, token }) {
                         </TouchableOpacity>
                     </View>
                     {/* Akció gomb (Számla letöltése / Lezárás) */}
-                    <View style={styles.actionButtonContainer}>
+                    {/*<View style={styles.actionButtonContainer}>
                         <ActionButton 
                             order={item} 
                             onStatusChange={updateStatus} 
                             token={token}
                         />
-                    </View>
+                    </View>*/}
                 </View>
                 )}
                 ListEmptyComponent={<Text style={styles.empty}>Még nincs megrendelésed.</Text>}

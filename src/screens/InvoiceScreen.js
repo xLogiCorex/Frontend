@@ -9,6 +9,7 @@ import * as Sharing from 'expo-sharing';
 
 import styles from '../style/InvoiceScreenStyle';
 import { getInvoices, getInvoicePdf } from '../services/invoiceService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const InvoiceItem = ({ item, token }) => {
     const [downloading, setDownloading] = useState(false);
@@ -41,6 +42,10 @@ const InvoiceItem = ({ item, token }) => {
             setDownloading(false);
         }
     };
+    const updateLater = async () => {
+        Alert.alert('Fejlesztés alatt')
+        alert("Fejlesztés alatt")
+    }
 
     return (
         <View style={styles.invoiceCard}>
@@ -57,7 +62,8 @@ const InvoiceItem = ({ item, token }) => {
             {/* Letöltés gomb */}
             <TouchableOpacity 
                 style={[styles.downloadButton, downloading && styles.downloadButtonDisabled]}
-                onPress={downloadInvoice}
+                /*onPress={downloadInvoice}*/
+                onPress={updateLater}
                 disabled={downloading}
             >
                 <Text style={styles.downloadButtonText}>
@@ -69,13 +75,15 @@ const InvoiceItem = ({ item, token }) => {
 };
 
 // Fő Számlázás Képernyő
-export default function MyInvoicesScreen({ token }) {
+export default function MyInvoicesScreen() {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+    let token = ""
 
     // Számlák betöltése az API-ból
     const load = async () => {
+        token = await AsyncStorage.getItem("token")
         if (!token) return; 
         try {
             setLoading(true);
@@ -90,8 +98,8 @@ export default function MyInvoicesScreen({ token }) {
     };
 
     useEffect(() => {
-        if (token) load();
-    }, [token]);
+         load();
+    }, []);
 
     // "Húzd le a frissítéshez" funkció
     const onRefresh = async () => {

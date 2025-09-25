@@ -52,7 +52,7 @@ export default StyleSheet.create({
         paddingVertical: 6, 
         borderRadius: 999,
         marginLeft: 10,
-        alignSelf: 'flex-start',
+        
     },
     badgeText: { 
         color: 'white', 

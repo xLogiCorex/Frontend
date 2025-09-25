@@ -153,9 +153,9 @@ export default function StockMovementScreen({ navigation }) {
               <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#eb4d4b' }]} onPress={() => openMovementModal(item, 'out')}>
                 <Text style={styles.buttonText}>- Kivét</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.actionButton, { backgroundColor: '#13109eff' }]} onPress={() => openMovementModal(item, 'transfer')}>
+              {/*<TouchableOpacity style={[styles.actionButton, { backgroundColor: '#13109eff' }]} onPress={() => openMovementModal(item, 'transfer')}>
                 <Text style={styles.buttonText}>↔ Áthelyezés</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>*/}
             </View>
           </View>
         )}

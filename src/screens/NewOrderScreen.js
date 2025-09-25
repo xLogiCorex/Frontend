@@ -88,13 +88,15 @@ export default function NewOrderScreen({ navigation }) {
     };
     const created = await createOrder(payload, token);
     
+    navigation.navigate('MyOrders')
+    alert("Megrendelés sikeresen rögzítve")
     Alert.alert(
       'Siker', 
       'Megrendelés rögzítve.',
       [
         { 
           text: 'OK', 
-          onPress: () => navigation.navigate('MyOrdersScreen')
+          //onPress: () => navigation.navigate('MyOrdersScreen')
         }
       ]
     );
