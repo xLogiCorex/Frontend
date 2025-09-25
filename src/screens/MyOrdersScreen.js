@@ -33,7 +33,7 @@ const StatusBadge = ({ status, onPress }) => {
     };
 
     return (<>
-        Státusz váltása:
+        <Text>Státusz váltása:</Text>
         <TouchableOpacity 
             style={[styles.badge, { backgroundColor: statusColors[status] || '#9ca3af' }]}
             onPress={onPress}
